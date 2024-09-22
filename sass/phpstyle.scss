@@ -1,0 +1,652 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+// *******************************************************************************************
+// Section Styling
+// *******************************************************************************************
+.my-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+  // margin: 40px 0;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+// *******************************************************************************************
+// Container for the entire slide bar
+// *******************************************************************************************
+.slide-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+
+  // Scrollable navigation container
+  .scroll-nav-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+
+    // Scroll buttons (previous and next)
+    .scroll-nav-prev,
+    .scroll-nav-next {
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      margin: 0 10px;
+
+      &:hover {
+        background-color: #ffc107;
+      }
+
+      &:disabled {
+        background-color: #888;
+        cursor: not-allowed;
+      }
+    }
+
+    // Scrollable area for the tasks
+    .scroll-nav {
+      flex-grow: 1;
+      overflow-x: auto;
+
+      // For Firefox (only)
+      scrollbar-width: thin;
+      scrollbar-color: #ccc transparent;
+
+      // For Webkit browsers (Chrome, Safari, Edge)
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      // Styling for the slide-bar grid that holds the task links
+      .slide-bar {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 5px;
+        padding: 5px;
+
+        a {
+          display: block;
+          color: white;
+          text-decoration: none;
+          font-size: 14px;
+          text-align: center;
+          padding: 8px;
+          background-color: #444;
+          border-radius: 4px;
+
+          &:hover {
+            background-color: #ffc107;
+          }
+        }
+      }
+    }
+  }
+
+  // Pagination buttons at the bottom (prev and next), aligned properly
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+hgroup.text-center {
+  text-align: center;
+  margin-top: 40px; /* Corrected margin-top syntax */
+}
+
+// *******************************************************************************************
+// Modal Styling
+// *******************************************************************************************
+
+.modal {
+  display: none; // Hidden by default
+  position: fixed; // Stay in place
+  z-index: 1000; // Sit on top
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  // overflow: auto; // Enable scroll if needed
+  background-color: rgba(0, 0, 0, 0.4); // Black background with opacity
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; // Center the modal
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; // Could be more or less, depending on screen size
+    max-width: 600px;
+    max-height: 80vh; // Maximum height of the modal
+    overflow-y: auto; // Enable vertical scrolling if needed
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); // Shadow for better visibility
+
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow-x: auto;
+      white-space: pre-wrap; // Ensures the content wraps
+      max-width: 100%;
+    }
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+    &:hover,
+    &:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+}
+
+// Button Styling
+.question-btn {
+  background-color: #495e57; // Green background
+  border: none; // Remove borders
+  color: white; // White text
+  padding: 10px 20px; // Some padding
+  text-align: center; // Centered text
+  text-decoration: none; // Remove underline
+  display: inline-block; // Get the element to line up correctly
+  font-size: 16px; // Increase font size
+  margin: 10px 2px; // Some margin
+  cursor: pointer; // Pointer/hand icon
+  border-radius: 5px; // Rounded corners
+
+  &:hover {
+    background-color: #ffd700; // Darker green on hover
+  }
+}
+
+// /* Class to disable body scroll */
+// .no-scroll {
+//   overflow: hidden; /* Hide scrollbars */
+//   position: fixed; /* Fix the body position */
+//   width: 100%; /* Ensure full width */
+//   height: 100%; /* Ensure full height */
+//   top: 0; /* Align to the top */
+//   left: 0; /* Align to the left */
+// }
+
+/* General styles for the modal */
+// .modal {
+//   display: none; /* Hidden by default */
+//   position: fixed; /* Stay in place */
+//   z-index: 1000; /* Sit on top */
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   overflow: auto; /* Enable scroll if needed */
+//   background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+// }
+
+// /* Modal content box */
+// .modal-content {
+//   background-color: #fefefe;
+//   margin: 15% auto; /* 15% from the top and centered */
+//   padding: 20px;
+//   border: 1px solid #888;
+//   width: 80%; /* Could be more or less, depending on screen size */
+//   max-width: 600px;
+//   border-radius: 5px;
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for better visibility */
+// }
+
+// /* The close button */
+// .close {
+//   color: #aaa;
+//   float: right;
+//   font-size: 28px;
+//   font-weight: bold;
+// }
+
+// .close:hover,
+// .close:focus {
+//   color: black;
+//   text-decoration: none;
+//   cursor: pointer;
+// }
+
+// /* Style for <pre> tag inside modal */
+// .modal-content pre {
+//   background-color: #f4f4f4;
+//   padding: 10px;
+//   border: 1px solid #ddd;
+//   border-radius: 5px;
+//   overflow-x: auto;
+//   white-space: pre-wrap; /* Ensures the content wraps */
+//   max-width: 100%;
+// }
+
+// /* Button styling */
+// .question-btn {
+//   background-color: #4caf50; /* Green background */
+//   border: none; /* Remove borders */
+//   color: white; /* White text */
+//   padding: 10px 20px; /* Some padding */
+//   text-align: center; /* Centered text */
+//   text-decoration: none; /* Remove underline */
+//   display: inline-block; /* Get the element to line up correctly */
+//   font-size: 16px; /* Increase font size */
+//   margin: 10px 2px; /* Some margin */
+//   cursor: pointer; /* Pointer/hand icon */
+//   border-radius: 5px; /* Rounded corners */
+// }
+
+// .question-btn:hover {
+//   background-color: #45a049; /* Darker green on hover */
+// }
+
+// *******************************************************************************************
+//php content styling
+// *******************************************************************************************
+/* Task 1 styling */
+#title {
+  color: blue;
+}
+.text {
+  color: green;
+}
+.php-text {
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Task 2 styling */
+.vari1 {
+  color: SlateBlue;
+}
+
+/* Task 3 styling */
+.esimerkki {
+  background-color: RGB(248, 244, 253);
+  width: 85%;
+  border: 1px solid RGB(41, 20, 82);
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 7px 7px 5px grey;
+}
+
+// Task 3 , Task 5 and Task 7
+.koodisini {
+  color: darkblue;
+  font-size: 100%;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .esimerkki {
+    width: 95%; /* Adjust width for smaller screens */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .koodisini {
+    font-size: 90%; /* Adjust font size for smaller screens if needed */
+  }
+}
+
+/* Task 6: Specific font for aphorism */
+.aforismi {
+  font-family: "Lora", serif;
+  font-style: italic;
+  color: darkblue;
+}
+
+/* Task 6 p styling*/
+#task6 p {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+// TASK 13 styling
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .content {
+    margin-right: 20px;
+  }
+
+  .circle {
+    display: inline-block;
+  }
+}
+
+// Media query for smaller screens
+@media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column; // Stack items vertically on smaller screens
+    align-items: flex-start; // Optional: Align items to start of container
+  }
+
+  .circle {
+    margin-top: 20px; // Optional: Add spacing between content and SVG on mobile
+  }
+}
+
+// Task 10 , Task 11 and Task 12
+.CSSTableGenerator {
+  margin: 0;
+  padding: 10px;
+  width: 100%;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  overflow: auto; // Enable both horizontal and vertical scrolling
+  margin-top: 20px;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  th {
+    background-color: #1c6ea4;
+    border: 1px solid #aaaaaa;
+    padding: 10px;
+    text-align: left;
+    color: #ffffff;
+  }
+
+  td {
+    border: 1px solid #aaaaaa;
+    padding: 10px;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #d0e4f5;
+  }
+}
+
+// // /* Modal styles */
+// .modal {
+//   display: none;
+//   position: fixed;
+//   z-index: 1;
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   margin-top: 20px;
+//   padding: 10px;
+//   overflow: auto;
+//   background-color: rgba(0, 0, 0, 0.5);
+// }
+
+// .modal-content {
+//   background-color: #f9f9f9;
+//   margin: 15% auto;
+//   padding: 20px;
+//   border-radius: 10px;
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+//   width: calc(100% - 40px);
+//   max-width: auto;
+//   text-align: left;
+// }
+
+// .close {
+//   color: #aaa;
+//   float: right;
+//   font-size: 28px;
+//   font-weight: bold;
+// }
+
+// .close:hover,
+// .close:focus {
+//   color: black;
+//   text-decoration: none;
+//   cursor: pointer;
+// }
+
+// .question-btn {
+//   padding: 10px 20px;
+//   background-color: #f0ad4e;
+//   color: white;
+//   border: none;
+//   cursor: pointer;
+// }
+
+// .question-btn:hover {
+//   background-color: #ec971f;
+// }
+
+// /* MODAL Styles for Desktop/Laptop */
+// .modal {
+//   display: none;
+//   position: fixed;
+//   z-index: 1;
+//   left: 0;
+//   top: 240px; /* Adjust this value to ensure the modal is positioned below the slider */
+//   width: 100%;
+//   height: calc(
+//     100% - 80px
+//   ); /* Adjust height to ensure the modal fits well within the viewport */
+//   padding: 10px;
+//   overflow: auto; /* Allow scrolling if content overflows */
+//   background-color: rgba(0, 0, 0, 0.5);
+// }
+
+// .modal-content {
+//   background-color: #f9f9f9;
+//   margin: 0 auto; /* Centered horizontally */
+//   padding: 20px;
+//   border-radius: 10px;
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+//   width: calc(100% - 40px); /* Ensure it fits within the viewport */
+//   max-width: 800px;
+//   text-align: left;
+//   overflow: auto; /* Allow scrolling within the content if needed */
+// }
+
+// .close {
+//   color: #aaa;
+//   float: right;
+//   font-size: 28px;
+//   font-weight: bold;
+// }
+
+// .close:hover,
+// .close:focus {
+//   color: black;
+//   text-decoration: none;
+//   cursor: pointer;
+// }
+
+// /* Optional: Add padding to ensure the content is not too close to the edges */
+// .modal-content {
+//   padding: 20px;
+// }
+
+// /* Optional: Add a paragraph or additional padding for better spacing */
+// .modal-content::before {
+//   content: "";
+//   display: block;
+//   height: 20px; /* Adjust this value as needed */
+// }
+#myBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: #495e57; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 50%; /* Rounded corners to make it a circle */
+  font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+  background-color: #ffce59; /* Change background color on hover */
+}
+
+#myBtn span {
+  display: inline-block;
+  transform: rotate(0deg); /* Ensure the arrow points up */
+}
+
+/* General styles for forms */
+form {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  max-width: 400px; /* Set a maximum width */
+}
+
+/* Input styles */
+input[type="text"],
+input[type="email"],
+textarea {
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+/* Required field styles */
+input[type="text"][required],
+input[type="email"][required],
+textarea[required] {
+  border-color: #ff0000; /* Red border for required fields */
+}
+
+.result {
+  font-size: 1.2em;
+  color: #333;
+  margin-top: 20px;
+}
+
+// centering the buttons of delete message , send message, and go back home
+.center-buttons {
+  text-align: center;
+}
+
+// task 40 styling
+.mini-website {
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1000px;
+}
+
+.mini-header,
+.mini-footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.mini-header h2,
+.mini-footer p {
+  margin: 0; /* Remove default margin */
+}
+
+.mini-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mini-sidebar {
+  width: 200px;
+  background-color: #495e57; /* Background color for the sidebar */
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.mini-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mini-sidebar ul li {
+  margin: 10px 0;
+  background-color: #065e3e;
+}
+
+.mini-sidebar ul li a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  padding: 5px;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.mini-sidebar ul li a:hover {
+  background-color: #ffc107; /* Darker background on hover */
+  color: white; /* White text on hover */
+}
+
+.mini-content {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 800px; /* Ensure the content doesn't stretch too wide */
+}
+
+.koodaus pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .mini-sidebar {
+    width: 100%;
+  }
+
+  .mini-content {
+    width: 100%;
+  }
+}
+
+// task 41 and 42 styling
+.hidden-content {
+  display: none;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}

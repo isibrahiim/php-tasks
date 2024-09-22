@@ -1,0 +1,200 @@
+// @use 'variables' as var;
+
+// @mixin mobile {
+//   /* Mobile devices (max-width: 768px) */
+//   @media (max-width: 768px) {
+//     .toggle-menu {
+//       display: flex;
+//     }
+
+//     /* Hide navigation items by default on mobile devices */
+//     nav ul.nav-items {
+//       display: none;
+//       position: absolute;
+//       top: 75px;
+//       right: 0;
+//       width: 100%;
+//       flex-direction: column;
+//       align-items: center;
+//       background: rgba(0, 0, 0, 0.8);
+//       color: #fff;
+//       padding: 20px 0;
+//       z-index: 1500; // Ensure the nav menu is above other elements
+//     }
+
+//     nav ul.nav-items.active {
+//       display: flex;
+//     }
+
+//     nav ul.nav-items li {
+//       width: auto; // Do not take full width
+//       text-align: center;
+//       padding: 10px 0; // Add padding for better spacing
+//     }
+
+//     nav ul.nav-items li a {
+//       color: #fff;
+//     }
+//   }
+// }
+
+// @mixin tablet {
+//   /* Tablets (min-width: 769px) and (max-width: 1024px) */
+//   @media (min-width: 769px) and (max-width: 1024px) {
+//     .logo img {
+//       width: 150px; // Reduced size to fit better in header
+//     }
+
+//     header {
+//       justify-content: space-between; // Ensure space between logo and nav
+//       align-items: center;
+//       padding: 0 20px; // Adjust padding to fit content
+//     }
+
+//     nav ul.nav-items {
+//       display: flex;
+//       gap: 10px; // Adjust gap to fit all items
+//     }
+
+//     nav ul.nav-items li {
+//       margin: 0;
+//     }
+
+//     nav ul.nav-items li a {
+//       font-size: 14px;
+//       /* Padding adjustment commented out to resolve the issue */
+//       /* padding: 5px 10px; */
+//     }
+
+//     .btn {
+//       padding: 10px 20px; // Adjust padding to fit within header
+//       font-size: 14px;
+//     }
+//   }
+// }
+
+// /* Include mixins for different device sizes */
+
+@use "variables" as var;
+
+@mixin mobile {
+  /* Mobile devices (max-width: 768px) */
+  @media (max-width: 768px) {
+    header {
+      .toggle-menu {
+        display: flex;
+        transition: transform 0.3s ease; // Adding transition for smooth animation
+        transform: translateY(0); // Ensure initial position
+      }
+      .headerSearchBox {
+        position: relative;
+        flex: 1;
+        max-width: 400px;
+        margin-left: 100px;
+        display: flex; // Ensure items are displayed in a row
+        align-items: center; // Center items vertically
+
+        input[type="search"] {
+          width: calc(100% - 40px);
+          height: 36px;
+          padding: 6px 12px;
+          border: none;
+          outline: none;
+          background: var.$header-SearchBar-bg-color;
+          border-radius: 20px;
+          color: var.$color-secondary;
+          font-size: 14px;
+        }
+
+        button {
+          width: 40px;
+          height: 36px;
+          border-radius: 20px;
+          cursor: pointer;
+          border: none;
+          background: var.$color-grreenish;
+          color: var.$color-light;
+          font-size: 16px;
+          display: flex; // Ensure icon is displayed correctly
+          align-items: center; // Center icon vertically
+          justify-content: center; // Center icon horizontally
+
+          i {
+            font-size: 16px; // Adjust icon size if necessary
+          }
+        }
+      }
+
+      // Styling for when menu is closed
+      nav ul.nav-items {
+        display: none;
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 20px 0;
+        z-index: 1500; // Ensure the nav menu is above other elements
+        opacity: 0; // Start with opacity 0 for fade-in effect
+        pointer-events: none; // Disable pointer events when hidden
+        transition: opacity 0.3s ease; // Fade-in transition
+
+        &.active {
+          display: flex;
+          opacity: 1; // Fade-in effect when active
+          pointer-events: auto; // Enable pointer events when active
+        }
+
+        li {
+          width: auto; // Do not take full width
+          text-align: center;
+          padding: 10px 0; // Add padding for better spacing
+
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin tablet {
+  /* Tablets (min-width: 769px) and (max-width: 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .logo img {
+      width: 150px; // Reduced size to fit better in header
+    }
+
+    header {
+      justify-content: space-between; // Ensure space between logo and nav
+      align-items: center;
+      padding: 0 20px; // Adjust padding to fit content
+    }
+
+    nav ul.nav-items {
+      display: flex;
+      gap: 10px; // Adjust gap to fit all items
+    }
+
+    nav ul.nav-items li {
+      margin: 0;
+    }
+
+    nav ul.nav-items li a {
+      font-size: 14px;
+    }
+
+    .btn {
+      padding: 10px 20px; // Adjust padding to fit within header
+      font-size: 14px;
+    }
+  }
+}
+
+/* Include mixins for different device sizes */
+@include mobile;
+@include tablet;

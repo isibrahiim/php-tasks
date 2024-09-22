@@ -1,0 +1,124 @@
+@use "variables" as var;
+@use "responsive" as resp;
+@use "utility";
+@use "phpstyle";
+// @use "booking";
+// Global reset and base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  // -webkit-user-select: none;
+  // user-select: none;
+}
+// Body styling
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  background: var.$color-cultured;
+  color: var.$color-dark-charcoal;
+}
+
+// Responsive container styles
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+// Header styling
+header {
+  background: var.$header-background-color;
+  box-shadow: var.$header-box-shadow;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // padding: 10px;
+  padding: 10px 20px; // Add padding for spacing
+
+  min-height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  // Logo styling
+  .logo {
+    img {
+      width: 250px;
+      height: auto;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  }
+
+  // Navigation styling
+  nav {
+    ul.nav-items {
+      display: flex;
+      list-style: none;
+
+      li {
+        position: relative;
+        padding: 0 10px;
+        margin: 10px;
+
+        a {
+          text-decoration: none;
+          color: inherit;
+          font-weight: bold;
+          // additional style for underline
+          padding-bottom: 5px;
+          border-bottom: 3px solid transparent;
+          transition: border-color 0.3s;
+          text-transform: capitalize;
+          &:hover {
+            border-bottom-color: var.$color-gold;
+          }
+        }
+      }
+    }
+  }
+  // Toggle menu button styling
+  .toggle-menu {
+    background: none;
+    border: none;
+    flex-direction: column;
+    margin: 10px;
+    cursor: pointer;
+    display: none;
+
+    //Hamburger menu styling
+    .bar {
+      width: 25px;
+      height: 3px;
+      background: #333;
+      margin: 2px 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+  }
+}
+
+// Footer styling
+footer {
+  background: var.$footer-background-color;
+  color: var.$footer-text-color;
+  padding: 20px;
+  text-align: center;
+}
+
+// Include mixins for different device sizes
+@include resp.mobile;
+@include resp.tablet;
+// @include resp.fold;
+
+// section styling
